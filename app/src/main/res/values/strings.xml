@@ -2,4 +2,10 @@
     <string name="app_name">Команда</string>
     <string name="add_new_player">Додати гравця</string>
     <string name="back_button">Back button</string>
+    <string name="enter_surname">Прізвище</string>
+    <string name="enter_name">Ім\'я</string>
+    <string name="enter_year_of_birth">Вікова категорія (рік)</string>
+    <string name="incorrect_year_of_birth">Введіть корректний рік (1900 - %1$s)</string>
+    <string name="save">Зберегти</string>
+    <string name="add_player">Додати гравця</string>
 </resources>

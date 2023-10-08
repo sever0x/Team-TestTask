@@ -43,10 +43,12 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -66,7 +68,6 @@ enum class TeamScreen(@StringRes val title: Int) {
 @ExperimentalMaterial3Api
 @Composable
 fun TeamAppBar(
-    modifier: Modifier = Modifier,
     navigateUp: () -> Unit,
     canNavigateBack: Boolean,
     currentScreen: TeamScreen
@@ -159,13 +160,13 @@ fun TeamScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(dimensionResource(id = R.dimen.padding_m)),
             contentAlignment = Alignment.BottomEnd
         ) {
             ButtonPlus(
                 onButtonClicked = onButtonClicked,
-                buttonSize = 70,
-                cornerShape = RoundedCornerShape(10.dp)
+                buttonSize = dimensionResource(id = R.dimen.button_size_small),
+                cornerShape = RoundedCornerShape(dimensionResource(id = R.dimen.button_corner_shape_small))
             )
         }
     }
@@ -186,7 +187,7 @@ fun ContainerButton(
         )
 
         Column(modifier = Modifier
-            .size(250.dp)
+            .size(dimensionResource(id = R.dimen.container_size))
             .drawBehind {
                 drawRoundRect(
                     color = Color.Gray, style = stroke,
@@ -198,8 +199,8 @@ fun ContainerButton(
         ) {
             ButtonPlus(onButtonClicked = onButtonClicked)
             Text(
-                text = "Додати гравця",
-                modifier = Modifier.padding(top = 16.dp)
+                text = stringResource(R.string.add_player),
+                modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_m))
             )
         }
     }
@@ -209,8 +210,8 @@ fun ContainerButton(
 fun ButtonPlus(
     modifier: Modifier = Modifier,
     onButtonClicked: () -> Unit,
-    buttonSize: Int = 100,
-    cornerShape: RoundedCornerShape = RoundedCornerShape(30.dp)
+    buttonSize: Dp = dimensionResource(id = R.dimen.button_size_large),
+    cornerShape: RoundedCornerShape = RoundedCornerShape(dimensionResource(id = R.dimen.button_corner_shape_large))
 ) {
     Button(
         onClick = { onButtonClicked() },
@@ -219,7 +220,7 @@ fun ButtonPlus(
                 131f, 0.71f, 0.39f, 1f
             )
         ),
-        modifier = modifier.size(buttonSize.dp),
+        modifier = modifier.size(buttonSize),
         shape = cornerShape
     ) {
         Icon(
@@ -238,7 +239,7 @@ fun PlayerCard(
 ) {
     Card(
         modifier = modifier
-            .padding(8.dp)
+            .padding(dimensionResource(id = R.dimen.padding_s))
             .fillMaxWidth()
             .size(300.dp, 100.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
@@ -250,7 +251,7 @@ fun PlayerCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
-                .padding(8.dp)
+                .padding(dimensionResource(id = R.dimen.padding_s))
                 .fillMaxSize()
         ) {
             Text(text = "${player.id}")

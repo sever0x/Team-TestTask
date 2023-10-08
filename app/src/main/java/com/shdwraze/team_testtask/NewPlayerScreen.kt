@@ -27,6 +27,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -50,6 +52,9 @@ fun NewPlayerScreen(
         mutableStateOf("")
     }
 
+    val paddingMedium = dimensionResource(id = R.dimen.padding_m)
+    val paddingLarge = dimensionResource(id = R.dimen.padding_l)
+
     val isButtonEnabled = name.isNotBlank() && surname.isNotBlank() && yearOfBirth.isNotBlank()
     val isYearOfBirthValid = yearOfBirth.isBlank() || (yearOfBirth.toIntOrNull() != null &&
             yearOfBirth.toInt() >= 1900 && yearOfBirth.toInt() <= Calendar.getInstance()
@@ -57,21 +62,25 @@ fun NewPlayerScreen(
 
     Column(
         modifier = modifier
-            .padding(top = 32.dp, start = 16.dp, end = 16.dp, bottom = 32.dp)
+            .padding(
+                top = paddingLarge, start = paddingMedium,
+                end = paddingMedium, bottom = paddingLarge
+            )
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         CustomTextField(
             value = surname,
             onValueChange = { surname = it },
-            label = "Прізвище",
+            label = stringResource(R.string.enter_surname),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Next
             )
         )
         CustomTextField(
-            value = name, onValueChange = { name = it }, label = "Ім'я",
+            value = name, onValueChange = { name = it },
+            label = stringResource(R.string.enter_name),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Next
@@ -80,15 +89,16 @@ fun NewPlayerScreen(
         CustomTextField(
             value = yearOfBirth,
             onValueChange = { yearOfBirth = it },
-            label = "Вікова категорія (рік)",
+            label = stringResource(R.string.enter_year_of_birth),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
             ),
             isError = !isYearOfBirthValid,
-            errorMessage = "Введіть корректний рік (1900 - ${
+            errorMessage = stringResource(
+                R.string.incorrect_year_of_birth,
                 Calendar.getInstance().get(Calendar.YEAR)
-            })"
+            )
         )
         Spacer(modifier = Modifier.weight(1f))
         Button(
@@ -102,10 +112,10 @@ fun NewPlayerScreen(
                     131f, 0.71f, 0.39f, 1f
                 )
             ),
-            shape = RoundedCornerShape(10.dp),
+            shape = RoundedCornerShape(dimensionResource(id = R.dimen.button_corner_shape_small)),
             enabled = isButtonEnabled
         ) {
-            Text(text = "Зберегти")
+            Text(text = stringResource(R.string.save))
         }
     }
 }
