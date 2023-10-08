@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Команда</string>
+    <string name="add_new_player">Додати гравця</string>
+    <string name="back_button">Back button</string>
+</resources>
